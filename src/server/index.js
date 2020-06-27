@@ -26,6 +26,16 @@ app.use(helmet.permittedCrossDomainPolicies());
 app.use(express.static('dist'));
 // }
 
+// const MongoClient = require('mongodb').MongoClient;
+// const uri =
+//   'mongodb+srv://admin:<password>@mantos0-an4ee.gcp.mongodb.net/<dbname>?retryWrites=true&w=majority';
+// const client = new MongoClient(uri, { useNewUrlParser: true });
+// client.connect(err => {
+//   const collection = client.db('test').collection('devices');
+//   // perform actions on the collection object
+//   client.close();
+// });
+
 // Set User Session
 const MongoStore = connectMongo(session);
 app.use(
@@ -36,6 +46,7 @@ app.use(
     resave: true,
     rolling: true,
     saveUninitialized: false,
+    useUnifiedTopology: true,
     cookie: {
       maxAge: parseInt(SESSION_MAX_AGE, 10),
       sameSite: true,

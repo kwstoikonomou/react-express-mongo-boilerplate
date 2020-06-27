@@ -4,17 +4,10 @@ const validMessage = `Please provide a valid email and password`;
 
 export const loginSchema = yup.object().shape({
   email: yup
-    .string(validMessage)
-    .min(3)
-    .max(255, validMessage)
-    .email(validMessage)
-    .required('Please enter your email and password.'),
-  password: yup
-    .string(validMessage)
-    .min(8, validMessage)
-    .max(50, validMessage)
-    .matches(/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/, validMessage)
-    .required('Please enter your email and password.')
+    .string()
+    .email('Please provide a valid email address')
+    .required('You need to provide an email'),
+  password: yup.string(validMessage).required('Please enter your email and password.')
 });
 
 const requiredMessage = field => `${field} is required`;
@@ -33,7 +26,7 @@ export const registerSchema = yup.object().shape({
     .min(8)
     .max(50, maxMessage(50))
     .matches(
-      /^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/,
+      /^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+).*$/,
       'Must have at least one letter and one digit.'
     )
     .required(requiredMessage('Password')),
